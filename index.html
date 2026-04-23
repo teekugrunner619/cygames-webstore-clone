@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cygames WebStore Clone</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 15px 20px;
+        }
+
+        body {
+            color: white;
+            font-family: sans-serif;
+            font-style: normal;
+            font-size: 20px;
+        }
+
+        h1 {
+            font-size: 56px;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        span {
+            color: rgb(111, 111, 111);
+        }
+
+        /* NAVBAR */
+
+        .menu {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .top-navbar {
+            background-color: rgb(0, 0, 0);
+
+        }
+
+        .sub-navbar {
+            display: flex;
+            gap: 40px;
+        }
+
+        .fix-image {
+            height: 100px;
+            width: 200px;
+        }
+
+        /* Sub Navbar */
+        .sub-navbar {
+            background-color: rgb(89, 209, 89);
+        }
+
+        .flex-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .list-menu {
+            display: flex;
+            gap: 40px;
+        }
+
+        .list-menu li a {
+            color: white;
+            font-weight: 800;
+            padding: 8px 16px;
+            border-radius: 8px;
+
+        }
+
+        .list-menu li a:hover {
+            background-color: rgb(41, 161, 41);
+            border-radius: 8px;
+            transition: background-color 0.4s ease;
+
+        }
+
+        .list-menu li a.active {
+            background-color: rgb(22, 114, 22);
+            transform: scale(0.95);
+        }
+
+        /* HERO */
+        .hero-content {
+            min-height: 700px;
+
+            background-image:
+                linear-gradient(to top, rgb(255, 255, 255) 0%, transparent 10%),
+                linear-gradient(to right, rgb(89, 209, 89) 40%, transparent 60%),
+                url('https://wallpapercave.com/wp/wp7445177.jpg'),
+                linear-gradient(to bottom, rgb(89, 209, 89) 0%, rgb(230, 255, 235) 100%);
+            background-position: left, right center, center;
+            background-repeat: no-repeat;
+            background-size: cover, auto 100%, cover;
+            background-color: rgb(89, 209, 89);
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-img {
+            height: 500px;
+            object-fit: cover;
+        }
+
+        /* ITEMS */
+        .grid-items .container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            align-items: stretch;
+        }
+
+        .item-bg {
+            background-image:
+                linear-gradient(to top, rgb(255, 255, 255) 0%, transparent 10%),
+                linear-gradient(to bottom, rgb(255, 255, 255) 0%, transparent 10%),
+                linear-gradient(to right, rgb(89, 209, 89) 40%, transparent 60%),
+                url('https://wallpapercave.com/wp/wp7445177.jpg'),
+                linear-gradient(to top, rgb(89, 209, 89) 0%, rgb(230, 255, 235) 100%),
+                linear-gradient(to bottom, rgb(89, 209, 89) 0%, rgb(230, 255, 235) 100%);
+            background-position: left, right center, center;
+            background-repeat: no-repeat;
+            background-size: cover, auto 100%, cover;
+            margin-top: 50px;
+        }
+
+        .item {
+            border-radius: 8px;
+
+        }
+
+        .item-big {
+            grid-column: span 2;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .item-img {
+            object-fit: cover;
+
+            width: 100%;
+            height: 250px;
+            display: block;
+            border-bottom: 2px solid rgb(179, 179, 179);
+            border-radius: 8px;
+        }
+
+        .item.card {
+            height: 100%;
+
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            background-color: white;
+            box-shadow: 1px 8px 10px rgb(209, 209, 209);
+            color: black;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .item.card:hover {
+            transform: translateY(-10px);
+            box-shadow: 1px 15px 25px rgb(150, 150, 150);
+        }
+
+        .item.sub {
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 0;
+
+        }
+
+        .item-img.big {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .item-big:hover {
+            transform: translateY(-10px);
+            box-shadow: 1px 15px 25px rgb(150, 150, 150);
+        }
+
+        .item-big a {
+            display: block;
+            height: 100%;
+        }
+
+        .item-context {
+            text-align: start;
+            margin: 15px 0;
+            padding: 20px;
+        }
+
+        /* footer */
+        footer {
+            background-color: rgb(0, 0, 0);
+            display: flex;
+            flex-direction: column;
+            margin-top: 30px;
+        }
+
+        .footer-sub-bg {
+            background-color: rgb(33, 33, 33);
+            padding: 10px;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-self: center;
+            margin-top: 30px;
+        }
+
+        .img-footer {
+            height: 80px;
+            width: 80px;
+            border-radius: 10px;
+
+        }
+
+        .btn-footer {
+            margin-top: 20px;
+            margin-bottom: 20px;
+
+        }
+
+        .footer-context {
+            display: flex;
+            gap: 10px;
+            font-size: 16px;
+        }
+
+        .logo {
+            height: 30px;
+            width: 30px;
+        }
+
+        .mode {
+            display: flex;
+            margin-top: 20px;
+            gap: 20px;
+        }
+
+        .a-sub {
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .footer-copyright {
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .a-sub::after {
+            content: "";
+            /* 🌟 ต้องมีคำนี้เสมอ! ไม่งั้นเส้นจะไม่ยอมโผล่มา */
+            position: absolute;
+            left: 0;
+            /* ให้จุดเริ่มต้นเกาะที่ขอบซ้ายสุด */
+            bottom: -2px;
+            /* ดันเส้นให้ต่ำกว่าตัวหนังสือนิดนึง จะได้ไม่ทับกัน */
+            width: 0%;
+            /* ✨ จุดเกิดเหตุ: เริ่มต้นให้เส้นยาว 0% (ซ่อนไว้) */
+            height: 1px;
+            /* ความหนาของเส้นใต้ */
+            background-color: white;
+            /* สีของเส้นใต้ */
+            transition: width 0.3s ease;
+            /* สั่งให้ตอนยืด ใช้เวลา 0.3 วินาทีแบบสมูทๆ */
+        }
+
+        /* 3. สั่งให้เส้นยืดออกเมื่อเอาเมาส์ชี้ */
+        .a-sub:hover::after {
+            width: 100%;
+            /* ✨ สั่งให้ยืดเต็มความกว้างของข้อความ */
+        }
+
+        .a-sub::before {
+            content: "> ";
+            margin-right: 5px;
+        }
+
+        .push-up {
+            margin-top: 10px;
+        }
+
+        .push-up-down {
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+
+        .btn-grey {
+            background-color: rgb(63, 63, 63);
+            border-radius: 8px;
+            padding: 10px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-grey:hover {
+            background-color: rgb(59, 59, 59);
+        }
+
+        .btn-outline {
+            border: 2px solid white;
+            border-radius: 8px;
+            padding: 10px;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background-color: white;
+            transition: background-color 0.4s ease;
+            color: black;
+            border: 2px solid rgb(0, 0, 0);
+        }
+
+        .btn-total {
+            margin-top: auto;
+            border-radius: 8px;
+            border-top: 2px solid rgb(179, 179, 179);
+            display: block;
+            width: 100%;
+            color: black;
+            background-color: rgb(255, 255, 255);
+            margin-top: auto;
+            padding: 10px 0;
+
+            transition: all 0.3s ease;
+        }
+
+        .item.card:hover .btn-total {
+            background-color: #f28100;
+            color: white;
+            border-top-color: #f28100;
+        }
+
+        .btn-outline.black {
+            margin-top: auto;
+            border-radius: 8px;
+            border-top: 2px solid rgb(179, 179, 179);
+            display: block;
+            width: 100%;
+            color: black;
+            background-color: rgb(255, 255, 255);
+            margin-top: auto;
+        }
+
+        .btn-context {
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-ld {
+            margin-top: auto;
+            border-radius: 8px;
+            display: block;
+            width: 100%;
+            color: black;
+            background-color: rgb(255, 255, 255);
+            margin-top: auto;
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-ld:hover {
+            color: rgb(255, 255, 255);
+            background-color: rgb(46, 46, 46);
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .list-menu {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .left-side {
+                display: none;
+            }
+
+            .hero-content {
+                background-image:
+                    linear-gradient(to top, rgb(255, 255, 255) 0%, transparent 10%),
+                    url('https://wallpapercave.com/wp/wp7445177.jpg');
+                background-position: left, right center, center;
+                background-repeat: no-repeat;
+                background-size: cover, auto 100%, cover;
+                background-color: rgb(89, 209, 89);
+                align-items: center;
+                object-fit: cover;
+            }
+
+            .grid-items .container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-context {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid-items .container {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            .item-big {
+                grid-column: span 1;
+            }
+        }
+
+        /* Theme */
+        body.dark-theme {
+            color: #e0e0e0;
+        }
+
+        /* เปลี่ยนสีการ์ดสินค้าในโหมดมืดให้กลืนกับพื้นหลัง */
+        body.dark-theme .item.card {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            box-shadow: 1px 8px 10px rgb(0, 0, 0);
+        }
+
+        /* เปลี่ยนสีปุ่มราคาในโหมดมืด */
+        body.dark-theme .btn-total,
+        body.dark-theme .btn-ld {
+            background-color: #2c2c2c;
+            color: #ffffff;
+            border-top-color: #555555;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ***================ NAVBAR  ================*** -->
+    <header>
+        <nav class="top-navbar">
+            <div class="container">
+
+                <div class="flex-navbar">
+                    <div class="menu">
+                        <h3>Cygames WebStore</h3>
+                        <img src="https://static.wikia.nocookie.net/93b7bd87-b65f-4d78-89f7-e57ebdc1a27e" alt="logo"
+                            class="fix-image">
+                    </div>
+                    <div class="menu">
+                        <h3>language</h3>
+                        <a href="#" class="btn-outline">Sign in</a>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </nav>
+
+        <nav class="sub-navbar">
+            <div class="container">
+                <ul class="list-menu">
+                    <li><a href="#" class="active">PICK UP</a></li>
+                    <li><a href="#">Carats Shop</a></li>
+                    <li><a href="#">Purchase History</a></li>
+                    <li><a href="#">Serial Code</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ***================ HERO  ================*** -->
+    <main>
+        <section class="hero-content">
+            <div class="container">
+                <div class="left-side">
+                    <h1>Get great deals on <br>in-game items!</h1>
+                </div>
+            </div>
+        </section>
+
+        <!-- ***================ ITEMS SHOWCASE  ================*** -->
+        <div class="item-bg">
+            <div class="grid-items">
+                <div class="container">
+                    <div class="item-big">
+                        <a href="#"><img src="https://wallpapercave.com/wp/wp7445177.jpg" alt="promote"
+                                class="item-img big">
+                        </a>
+                    </div>
+
+                    <div class="item card">
+                        <a href="#"><img src="https://wallpapercave.com/wp/wp7445177.jpg" alt="item1"
+                                class="item-img"></a>
+                        <div class="item-context">
+                            <p>8,250 Carats (3 times only) <br>
+                                <span>7,500 paid + 750 free</span>
+                            </p>
+                        </div>
+                        <div class="item sub">
+                            <a href="#" class="btn-total">69.99$</a>
+                        </div>
+                    </div>
+                    <div class="item card">
+                        <a href="#"><img src="https://wallpapercave.com/wp/wp7445177.jpg" alt="item2"
+                                class="item-img"></a>
+                        <div class="item-context">
+                            <p>8,250 Carats (3 times only) <br>
+                                <span>7,500 paid + 750 free</span>
+                            </p>
+                        </div>
+                        <div class="item sub">
+                            <a href="#" class="btn-total">69.99$</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- ***================ ITEMS  ================*** -->
+            <div class="container">
+                <div class="left-side">
+                    <h2>Carats Shop</h2>
+                </div>
+            </div>
+
+            <div class="grid-items">
+                <div class="container">
+                    <div class="item card">
+                        <a href="#"><img src="https://wallpapercave.com/wp/wp7445177.jpg" alt="item3"
+                                class="item-img"></a>
+                        <div class="item-context">
+                            <p>8,250 Carats (3 times only) <br>
+                                <span>7,500 paid + 750 free</span>
+                            </p>
+                        </div>
+                        <div class="item sub">
+                            <a href="#" class="btn-total">69.99$</a>
+                        </div>
+                    </div>
+                    <div class="item card">
+                        <a href="#"><img src="https://wallpapercave.com/wp/wp7445177.jpg" alt="item4"
+                                class="item-img"></a>
+                        <div class="item-context">
+                            <p>8,250 Carats (3 times only) <br>
+                                <span>7,500 paid + 750 free</span>
+                            </p>
+                        </div>
+                        <div class="item sub">
+                            <a href="#" class="btn-total">69.99$</a>
+                        </div>
+                    </div>
+                    <div class="item card">
+                        <a href="#"><img src="https://wallpapercave.com/wp/wp7445177.jpg" alt="item5"
+                                class="item-img"></a>
+                        <div class="item-context">
+                            <p>8,250 Carats (3 times only) <br>
+                                <span>7,500 paid + 750 free</span>
+                            </p>
+                        </div>
+                        <div class="item sub">
+                            <a href="#" class="btn-total">69.99$</a>
+                        </div>
+                    </div>
+                    <div class="item card">
+                        <a href="#"><img src="https://wallpapercave.com/wp/wp7445177.jpg" alt="item6"
+                                class="item-img"></a>
+                        <div class="item-context">
+                            <p>8,250 Carats (3 times only) <br>
+                                <span>7,500 paid + 750 free</span>
+                            </p>
+                        </div>
+                        <div class="item sub">
+                            <a href="#" class="btn-total">69.99$</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-items">
+            <div class="container">
+                <div class="item card">
+                    <a href="#"><img src="https://wallpapercave.com/wp/wp7445177.jpg" alt="item7" class="item-img"></a>
+                    <div class="item-context">
+                        <p>8,250 Carats (3 times only) <br>
+                            <span>7,500 paid + 750 free</span>
+                        </p>
+                    </div>
+                    <div class="item sub">
+                        <a href="#" class="btn-total">69.99$</a>
+                    </div>
+                </div>
+                <div class="item card">
+                    <a href="#"><img src="https://wallpapercave.com/wp/wp7445177.jpg" alt="item8" class="item-img"></a>
+                    <div class="item-context">
+                        <p>8,250 Carats (3 times only) <br>
+                            <span>7,500 paid + 750 free</span>
+                        </p>
+                    </div>
+                    <div class="item sub">
+                        <a href="#" class="btn-total">69.99$</a>
+                    </div>
+                </div>
+                <div class="item card">
+                    <a href="#"><img src="https://wallpapercave.com/wp/wp7445177.jpg" alt="item9" class="item-img"></a>
+                    <div class="item-context">
+                        <p>8,250 Carats (3 times only) <br>
+                            <span>7,500 paid + 750 free</span>
+                        </p>
+                    </div>
+                    <div class="item sub">
+                        <a href="#" class="btn-total">69.99$</a>
+                    </div>
+                </div>
+                <div class="item card">
+                    <a href="#"><img src="https://wallpapercave.com/wp/wp7445177.jpg" alt="item10" class="item-img"></a>
+                    <div class="item-context">
+                        <p>8,250 Carats (3 times only) <br>
+                            <span>7,500 paid + 750 free</span>
+                        </p>
+                    </div>
+                    <div class="item sub">
+                        <a href="#" class="btn-total">69.99$</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ***================ Footer  ================*** -->
+    <footer>
+        <div class="footer-sub-bg">
+            <div class="footer-container">
+                <img src="https://webstore.cygames.com/_app/immutable/assets/icon_2.C4rCOaxZ.avif" alt="logo"
+                    class="img-footer">
+                <h3 class="push-up">Umamusume: Pretty Derby</h3>
+                <div class="btn-footer">
+                    <a href="#" class="btn-grey">App Store</a>
+                    <a href="#" class="btn-grey">Google Play</a>
+                    <a href="#" class="btn-grey">Steam</a>
+                </div>
+                <div class="push-up">
+                    <a href="#" class="a-sub"> Terms of Use</a>
+                    <a href="#" class="a-sub"> Official Website ></a>
+                </div>
+
+            </div>
+        </div>
+        <div class="footer-container">
+            <a href="#" class="btn-outline btn-context">
+                <img src="https://webstore.cygames.com/_app/immutable/assets/icon_2.C4rCOaxZ.avif" alt="logo-app"
+                    class="logo">
+                @Cygamesid_en
+            </a>
+            <ul class="footer-context push-up">
+                <li><a href="#" class="a-sub"> User Support</a></li>
+                <li><a href="#" class="a-sub"> About</a></li>
+                <li><a href="#" class="a-sub"> Privacy Policy</a></li>
+                <li><a href="#" class="a-sub"> California Privacy Notice</a></li>
+                <li><a href="#" class="a-sub"> Your Privacy Choices</a></li>
+                <li><a href="#" class="a-sub"> Terms of Use</a></li>
+                <li><a href="#" class="a-sub"> Regarding Trademarks</a></li>
+            </ul>
+
+            <div class="mode">
+                <a href="#" class="btn-ld" id="btn-light">Light</a>
+                <a href="#" class="btn-ld" id="btn-dark">Dark</a>
+            </div>
+            <div class="push-up-down">
+                <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='126'%20height='29'%20viewBox='0%200%20126%2029'%3e%3cpath%20fill='white'%20d='M31.29,19.44c-2.8,0-5.2-2.3-5.2-5.1s2.3-5.1,5.2-5.2c1.5,0,2.8.6,3.7,1.8h3.8c-1.4-3.2-4.5-5.1-7.7-5.1-4.6,0-8.4,3.8-8.4,8.4s3.8,8.4,8.4,8.4c3.4,0,6.7-2.1,7.9-5.6h-3.7c-.8,1.5-2.3,2.4-4,2.4ZM50.79,10.04l-3.7,7.3-3.7-7.3h-3.7l5.5,11-3.3,6.5h3.5l8.8-17.5s-3.4,0-3.4,0ZM21.29.14c-1,1.6-3.3,4-8.5,2.4-4.6-1.4-6.8,2.1-7.1,2.8v-1.5q0-.1-.1-.1c-.1,0-.1.1-.1.1-.5,2.2-1.2,3.6-2,4.3v.5c-.6.5-1.7,1.1-2.9,1.3s-.2,2-.2,2c.1-.3.4-.5.7-.6l.6,1,.1-1.2c.1,0,.3-.1.5-.1l.2.8.2-.9h.9c.4,0,.6.5.4.8-.3.4-.6.9-.7.9l-.5-.5.2,1h0c-.2.3-.3.7-.1,1l.9-.3s-.1-.1-.1-.2c0-.3.3-.6.9-1,2-1.6,4,.9,1.6,3.2-1.8,1.7-2.3,2.9-2.3,3.4h0c-.1.1-.2.2-.2.4h0c0,.2.2.4.4.4.3.4.5.9.5,1.4,0,.6-.2,1.1-.6,1.5-.3,0-.6.2-.8.4h0c-.4.4-.3,1,0,1.4h-.4l-1,1.9,1,1.9h13.2l1-1.9-1-1.9h-.4s.1,0,.1-.1h0c.4-.4.3-1,0-1.4-.2-.2-.5-.3-.8-.3-.4-.4-.6-.9-.6-1.5,0-.5.2-1,.5-1.4.2,0,.4-.2.4-.4h0c0-.2-.1-.3-.2-.4h0c.1-.4.5-1.4,0-2.7-.2-.5.2-.7.6-.6.4.1,1.1.3,2.2,1.2,1.5,1.2,1.4,1.7,1.7,1.6.3-.1.1-1.2-1.1-2.7-1.4-1.8-3-2.5-3.8-2.9-.6-.4-.5-.7-.1-.8.6-.1,1.6,0,3,.8.3.2.7.5.8.3.1-.2,0-.5-.6-.9-2.3-1.9-4.9-2.1-5.3-2.7-.2-.4-.1-.8,1.1-1.1,1-.2,1.8-.1,2.1,0s.3-.3-.1-.5c-2.6-1.1-4.3-.2-5.3-.9-.9-.6-.7-2,.6-2.1,1.4-.1,4.3.7,6.6-.3,2.7-1.3,3.4-3.1,4.1-4.5.4-.4,0-.6-.2-.3ZM74.79,9.54c-3.6,0-6.6,2.9-6.6,6.5s2.9,6.5,6.6,6.5c1.3,0,2.6-.4,3.7-1.1v.6h2.9v-12l-2.7.8c-1.2-.9-2.5-1.3-3.9-1.3ZM74.99,19.54c-1.9,0-3.4-1.5-3.4-3.4s1.6-3.5,3.4-3.5c1.9,0,3.5,1.6,3.5,3.5,0,1.8-1.6,3.4-3.5,3.4ZM120.29,14.64c-1.6-.2-2.4-.6-2.4-1.3,0-.5.5-1.1,2-1.1,1.3,0,2.2.6,2.3,1.3h3.4c-.6-2.7-2.5-4-5.7-4-.6,0-2.1.1-3.4.8s-2,1.8-2,3.2c0,2.2,1.8,3.6,5.4,4,1.7.2,2.6.7,2.6,1.3,0,.5-.9,1.1-2.4,1.1-1.6,0-2.7-.6-2.8-1.7h-3.3c.2,2.8,2.6,4.4,6,4.4.5,0,2.1-.1,3.6-.8,1.4-.7,2.1-1.8,2.1-3.2.2-2.2-1.7-3.5-5.4-4ZM106.89,9.54c-3.6,0-6.6,2.9-6.6,6.5s2.9,6.5,6.6,6.5c2.7,0,5.1-1.6,6.2-4.3h-3.3c-.7.8-1.7,1.3-2.7,1.3-1.5,0-2.9-1-3.3-2.5h9.6c0-.2.1-.7.1-1-.1-3.6-2.9-6.5-6.6-6.5ZM103.89,14.74c.5-1.3,1.8-2.2,3.2-2.2s2.7.9,3.2,2.2h-6.4ZM60.29,9.54c-3.6,0-6.6,2.9-6.6,6.5s2.9,6.5,6.6,6.5c1.1,0,2.2-.3,3.2-.8-.3,1.5-1.6,2.6-3.2,2.6-1,0-2-.5-2.7-1.4h-3.6c.9,2.8,3.4,4.6,6.3,4.6,3.6,0,6.5-2.9,6.5-6.5v-11l-2.6.8c-1.1-.9-2.5-1.3-3.9-1.3ZM60.39,19.54c-1.9,0-3.4-1.5-3.4-3.4s1.6-3.4,3.4-3.4,3.4,1.6,3.4,3.4c.1,1.9-1.5,3.4-3.4,3.4ZM94.19,9.54c-1.1,0-2.2.4-3.1,1.1-.9-.7-1.9-1.1-3.1-1.1-1.1,0-2.1.4-2.9,1.1l-1.8-.6v12.1h3.2v-8.1c0-.8.7-1.5,1.5-1.5s1.5.7,1.5,1.5v8.1h3.2v-8.1c0-.8.7-1.5,1.5-1.5s1.5.7,1.5,1.5v8.1h3.2v-7.9c0-2.6-2.1-4.7-4.7-4.7Z'%20/%3e%3c/svg%3e"
+                    alt="company">
+                <p class="footer-copyright">
+                    © Cygames, Inc.</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+    <script>
+    // 1. สั่งให้ JS ไปตามหาปุ่มที่มี id ตามที่ตั้งไว้
+    const btnLight = document.getElementById('btn-light');
+    const btnDark = document.getElementById('btn-dark');
+
+    // 2. ดักจับเหตุการณ์ (Event Listener) เมื่อปุ่ม Dark ถูกคลิก
+    btnDark.addEventListener('click', function(event) {
+        event.preventDefault(); // ป้องกันไม่ให้หน้าเว็บเด้งกลับไปบนสุดเวลาคลิกลิงก์ #
+        document.body.classList.add('dark-theme'); // สั่งสวมชุด .dark-theme ให้ <body>
+    });
+
+    // 3. ดักจับเหตุการณ์เมื่อปุ่ม Light ถูกคลิก
+    btnLight.addEventListener('click', function(event) {
+        event.preventDefault();
+        document.body.classList.remove('dark-theme'); // สั่งถอดชุด .dark-theme ออก
+    });
+</script>
+</body>
+
+</html>
